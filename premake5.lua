@@ -1,6 +1,7 @@
 project "ImGui"
 	kind "StaticLib"
 	language "C++"
+	staticruntime "On"
 
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -16,12 +17,12 @@ project "ImGui"
 		"imstb_rectpack.h",
 		"imstb_textedit.h",
 		"imstb_truetype.h",
-		"imgui_demo.cpp"
+		"imgui_demo.cpp",
+		"imgui_tables.cpp"
 	}
 
 	filter "system:windows"
 		systemversion "latest"
-		staticruntime "On"
 		cppdialect "C++17"
 
 	filter { "system:windows", "configurations:Release or configurations:Dist" }
