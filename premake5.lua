@@ -1,8 +1,7 @@
 project "ImGui"
-	kind "StaticLib"
+    kind "StaticLib"
 	language "C++"
     cppdialect "C++17"
-	staticruntime "On"
 
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -22,9 +21,13 @@ project "ImGui"
 		"imgui_tables.cpp"
 	}
 
+	filter "not *DLL"
+		staticruntime "On"
 	filter "*DLL"
+        -- Export Imgui symbols for DLL builds
 		defines "IMGUI_API=__declspec(dllexport)"
-
+        -- Don't include Static runtime
+		staticruntime "Off"
 	filter "system:windows"
 		systemversion "latest"
 
